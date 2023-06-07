@@ -21,6 +21,7 @@ axios.get('server url')
   })
 ```
 
+
   * When return is a promise, all consequencial code must be put in `then` method.
   * `then` method takes a function as parameter. The function is called when the promise is resolved. The parameter of the function is the resolved value of the promise.
   * Use `console.log` to print the response to the console.
