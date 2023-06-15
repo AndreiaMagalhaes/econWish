@@ -6,7 +6,8 @@ import appConfig from "./appConfig.json"
 import SearchAppBar from './components/SearchAppBar';
 import axios from 'axios';
 import { useState } from 'react';
-import Card2 from './components/Card2';
+//import Card2 from './components/Card2';
+import Card2 from './components/CardAndreia'
 
 export default function App() {
 
@@ -88,13 +89,15 @@ function AppContent({ users }) {
         )
     })
     const cards = users.map((e, i) => {
-        return (
-            <GalleryItem key={i}>
-                <Card2 user={e} />
-                {/* <Item sx={{height: "300px"}}/> */}
-                {/* <Card user={e} style={style}/>   */}
-            </GalleryItem>
-        )
+        if (!Object.values(e).includes(null) && !Object.values(e).includes(undefined) && !Object.values(e).includes('') && !Object.values(e).includes(' ')) {
+            return (
+                <GalleryItem key={i}>
+                    <Card2 user={e} />
+                    {/* <Item sx={{height: "300px"}}/> */}
+                    {/* <Card user={e} style={style}/>   */}
+                </GalleryItem>
+            )
+        }
     })
     return (
         <>

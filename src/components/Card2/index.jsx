@@ -33,7 +33,7 @@ export default function Card2({ user }) {
  
 
   return (
-    <Card sx={{ maxWidth: 345, margin: "auto", height: 587 }} id={id}>
+    <Card mx={{ minWidth: 500, maxWidth: 520, margin: "auto", height: 400}} id={id}>
       <div id={`${id}`}></div>
       {cardContent}
     </Card>
