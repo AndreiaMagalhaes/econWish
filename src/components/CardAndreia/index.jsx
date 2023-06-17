@@ -33,17 +33,19 @@ import { useState } from "react";
 //import { useBouncyShadowStyles } from '@mui/material/styles/shadows/bouncy' //'@mui-treasury/styles/shadow/bouncy';
 
 
+const idStyle = {}
 
-  function ReceiverStamp({name, grade, department}){
+  //department was used previously but not anymore
+  function ReceiverStamp({name, grade, department, style}){
     return(
       <div className="mycontainer">
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 1 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 1, marginTop:7 }}>
                 <div className="infos">
                     <div className="name">{name}</div>
-                    <div className="department">{department + " " + grade}</div>
+                    <div className="department">{grade}</div>
                 </div>                    
         </Box>
-        <Stamp/> 
+        <Stamp style={style}/> 
       </div>
     )
   }
@@ -73,15 +75,15 @@ import { useState } from "react";
     },
   }));*/
 
-  function ContentFront({name, grade, imgSrc, department, onClick}){
+  function ContentFront({name, grade, imgSrc, department, onClick, style}){
     return(
       <CardContent >
           <Box sx={{alignItems:'row',display:'flex'}}> 
-            <ReceiverStamp name={name} grade={grade} department={department} sx={{minWidth:250}}/>
+            <ReceiverStamp name={name} grade={grade} department={department} sx={{minWidth:250}} style={style}/>
             <ReceiverPhoto imgSrc={imgSrc}/>
           </Box>
-        <Button color={'primary'} fullWidth onClick={onClick} style={{marginTop:'15px'}}>
-          Find Out More <ChevronRightRounded />
+        <Button color={'primary'} fullWidth onClick={onClick} style={{marginTop:'35px', fontSize:14, outline:'none'}}>
+          Discover the wish <ChevronRightRounded />
         </Button>
       </CardContent>
     )
@@ -89,14 +91,14 @@ import { useState } from "react";
 
   function ContentMessage({wish, onClick}){
     return(
-      <CardContent sx={{minWidth: '350px', maxWidth: '350px', height:'251px'}}>
+      <CardContent sx={{minWidth: '350px', maxWidth: '350px', height:'272px', padding:'0px', paddingTop:'16px'}}>
       <div style={{ height: "100%", position: "relative" }}>
         <Stack sx={{ height: "100%", justifyContent: "center" }} >
           <Container>
             <Box>
-              <Typography>
+              <div className="wish">
                 {wish}
-              </Typography>
+              </div>
             </Box>
           </Container>
         </Stack>
@@ -105,10 +107,11 @@ import { useState } from "react";
         sx={{
           position: 'absolute',
           color: (theme) => theme.palette.grey[500],
-          right: 15,
-          top: -18
+          right: 5,
+          top: -10
         }}
         onClick={onClick}
+        style={{outline:'none'}}
       >
         <CloseIcon />
       </IconButton>
@@ -132,10 +135,30 @@ import { useState } from "react";
     const handleMessagedClick = () => {
       setShowMessage(!showMessage)
     };
+    
+    //declare and check whether we already have a stored style for the card
+    let style = {};
+    if (id in idStyle){
+      console.log("we found an existing style")
+      style=idStyle[id];
+    } else {
+      console.log("no such key");
+      //random style
+      const random = Math.floor(Math.random()*3)+1
+      switch (random){
+        case 1: style={left:'-10px', bottom:'-25px', transform:'rotate(5deg)'}; break;
+        case 2: style={left:'0px', bottom:'-50px', transform:'rotate(-45deg)'}; break;
+        case 3: style={left:'-20px', bottom:'-50px', transform:'rotate(-15deg)'}; break;
+      }
+      //store it to be used later on
+      idStyle[id]=style;
+    }
+
+
 
     var cardContent = showMessage ?
     <ContentMessage wish={wish} onClick={handleMessagedClick} /> :
-    <ContentFront onClick={handleMessagedClick} name={name} grade={grade} imgSrc={imgSrc} department={department}/>
+    <ContentFront onClick={handleMessagedClick} name={name} grade={grade} imgSrc={imgSrc} department={department} style={style}/>
 
 
 

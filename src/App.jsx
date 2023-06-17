@@ -102,12 +102,14 @@ function AppContent({ users }) {
     return (
         <>
             <div className="main2">
+                <div style={{height:"5px"}}/>
                 <Gallery>
                     <>
                         {cards}
                         <div className="endCard" />
                     </>
                 </Gallery>
+                <div style={{height:"80px"}}/>
             </div>
 
             <div className="footer2">
